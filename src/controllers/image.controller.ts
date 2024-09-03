@@ -11,7 +11,7 @@ import type { Images } from "../types/Image";
 import { stringToArray } from "../utils/transform";
 
 const Images = Database.images;
-const KeyImages = Database.key_image;
+const KeyImages = Database.key_images;
 const Op = Database.Sequelize.Op;
 
 export const FindPaginate = async (
@@ -48,7 +48,7 @@ export const Search = async (req: Express.Request, res: Express.Response) => {
 
   // Find the key by query value
   const findKeyByQueryValue = await KeyImages.findAll({
-    where: key ? { key: { [Op.like]: `%${key}%` } } : null,
+    where: key ? { image_key: { [Op.like]: `%${key}%` } } : null,
   }).catch((error: TypeError) => {
     res.status(500).send({
       message: error.message || "Error retrieving images",
@@ -79,14 +79,11 @@ export const Post = async (req: Express.Request, res: Express.Response) => {
   const pdfFile = `PDF/${dataFile.name}`;
   const filePath = path.join(__dirname, "..", "temp", dataFile.name);
 
+  console.log(filePath);
   // Effectuez le déplacement d'un fichier dans le serveur
-  await dataFile.mv(filePath, (err) => {
-    if (err) {
-      return res.status(500).send("Error moving file.");
-    }
-    return;
-  });
+  await dataFile.mv(filePath);
 
+  console.log(fs.createReadStream(filePath));
   // Effectuez une demande HTTP à http://localhost:5000/model/predict générer les keywords
   const formData = new FormData();
   formData.append("image", fs.createReadStream(filePath));
@@ -146,9 +143,6 @@ export const Post = async (req: Express.Request, res: Express.Response) => {
   if (!tableKey) {
     return res.status(500).send("Error generating keywords");
   }
-
-  // Supprimez le fichier temporaire
-  fs.unlinkSync(filePath);
 
   return res.status(200).send(dataImage);
 };

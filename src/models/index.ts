@@ -14,9 +14,9 @@ Database.sequelize = connectSQLServer;
 Database.images = ImageModel(connectSQLServer, Sequelize);
 
 // Key_images
-Database.key_image = KeyImageModel(connectSQLServer, Sequelize);
+Database.key_images = KeyImageModel(connectSQLServer, Sequelize);
 
-Database.key_image.belongsTo(Database.images, {
+Database.key_images.belongsTo(Database.images, {
   through: "key_image",
   foreignKey: "image_id",
 });
