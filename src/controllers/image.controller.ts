@@ -63,7 +63,7 @@ export const Search = async (req: Express.Request, res: Express.Response) => {
   // Get the value of the primary key
   let result = [];
   for (let item of findKeyByQueryValue) {
-    const valueByPrimaryKey = await Images.findByPk(item.id_image);
+    const valueByPrimaryKey = await Images.findByPk(item.image_id);
     result.push(valueByPrimaryKey);
   }
   return res.status(200).send(result);
@@ -135,8 +135,8 @@ export const Post = async (req: Express.Request, res: Express.Response) => {
 
   const tableKey = arrayKey.map((item: string) => {
     KeyImages.create({
-      id_image: dataImage.id,
-      key: item,
+      image_id: dataImage.id,
+      image_key: item,
     });
   });
 
