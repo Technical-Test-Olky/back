@@ -1,21 +1,25 @@
 require("dotenv").config();
-import { cert, initializeApp } from "firebase-admin/app";
+import { cert, initializeApp, ServiceAccount } from "firebase-admin/app";
 import { getStorage } from "firebase-admin/storage";
+import { checkEnvVars } from "../utils/checkEnvVars";
 
-const firebaseConfig: any = {
-  type: process.env.TYPE,
-  project_id: process.env.PROJECT_ID,
-  private_key_id: process.env.PRIVATE_KEY_ID,
-  private_key: process.env.PRIVATE_KEY?.replace(/\\n/g, "\n"),
-  client_email: process.env.CLIENT_EMAIL,
-  client_id: process.env.CLIENT_ID,
-  auth_uri: process.env.AUTH_URI,
-  token_uri: process.env.TOKEN_URI,
-  auth_provider_x509_cert_url: process.env.AUTH_PROVIDER_X509_CERT_URL,
-  client_x509_cert_url: process.env.CLIENT_X509_CERT_URL,
+const requiredEnvVars = [
+  "PROJECT_ID",
+  "PRIVATE_KEY",
+  "CLIENT_EMAIL",
+  "FIREBASE_BUCKET_NAME",
+];
+checkEnvVars(requiredEnvVars);
+
+const firebaseConfig: ServiceAccount = {
+  projectId: process.env.PROJECT_ID,
+  privateKey: process.env.PRIVATE_KEY!.replace(/\\n/g, "\n"),
+  clientEmail: process.env.CLIENT_EMAIL,
 };
 
 const app = initializeApp({
   credential: cert(firebaseConfig),
 });
-export const storage = getStorage(app).bucket("gs://olky-65fb3.appspot.com");
+
+const bucketName = process.env.FIREBASE_BUCKET_NAME;
+export const bucketStorage = getStorage(app).bucket(bucketName);

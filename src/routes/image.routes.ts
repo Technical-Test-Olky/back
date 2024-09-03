@@ -1,9 +1,9 @@
-import { FindAll, Search, Post } from "../controllers/image.controller";
+import Express from "express";
+import { Search, Post, FindPaginate } from "../controllers/image.controller";
 
-const ImageRoute = (app: any) => {
-  app.get("/images", FindAll);
+const ImageRoute = (app: Express.Application) => {
+  app.get("/images", FindPaginate);
   app.get("/images/search", Search);
-
   app.post("/upload", Post);
 };
 

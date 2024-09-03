@@ -14,17 +14,12 @@ app.use(fileUpload());
 app.use(Express.urlencoded({ limit: "50mb", extended: true }));
 app.use(Express.json({ limit: "50mb" }));
 
-// Sequelize
+// Use Sequelize to sync the database
 Database.sequelize.sync();
 
 // Imports Routes
 ImageRoute(app);
 
-//Define Project API
-app.get("/", (_req: Express.Request, res: Express.Response) => {
-  res.json({ message: "Welcome to Olky test application." });
-});
-
 app.listen(PORT, () => {
-  console.log(`Server run to PORT ${PORT}`);
+  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
 });

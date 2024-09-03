@@ -1,33 +1,24 @@
 require("dotenv").config();
 import { Sequelize } from "sequelize";
 import { ImageModel } from "./image.model";
-
-//Connect to SQL database
-const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
-const sequelize = new Sequelize(
-  DB_NAME as string,
-  DB_USER as string,
-  DB_PASSWORD as string,
-  {
-    host: DB_HOST as string,
-    port: DB_PORT as unknown as number,
-    dialect: "mysql",
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
-  }
-);
+import { KeyImageModel } from "./key.model";
+import { connectSQLServer } from "../config/sequelize.config";
 
 const Database: any = {};
 
 // Build database
 Database.Sequelize = Sequelize;
-Database.sequelize = sequelize;
+Database.sequelize = connectSQLServer;
 
 // Images
-Database.images = ImageModel(sequelize, Sequelize);
+Database.images = ImageModel(connectSQLServer, Sequelize);
+
+// Key_images
+Database.key_image = KeyImageModel(connectSQLServer, Sequelize);
+
+Database.key_image.belongsTo(Database.images, {
+  through: "key_image",
+  foreignKey: "image_id",
+});
 
 export = Database;
