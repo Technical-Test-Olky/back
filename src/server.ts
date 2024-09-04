@@ -5,7 +5,7 @@ import ImageRoute from "./routes/image.routes";
 import Database from "./models";
 
 // Constant
-let PORT = "8080";
+let PORT = "8083";
 
 const app: Express.Application = Express();
 
@@ -15,10 +15,14 @@ app.use(Express.urlencoded({ limit: "50mb", extended: true }));
 app.use(Express.json({ limit: "50mb" }));
 
 // Use Sequelize to sync the database
-Database.sequelize.sync();
+Database.sequelize.sync(true);
 
 // Imports Routes
 ImageRoute(app);
+
+app.get("/", (req: Express.Request, res: Express.Response) => {
+  res.send("Hello World");
+});
 
 app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
