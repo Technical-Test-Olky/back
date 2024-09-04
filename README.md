@@ -4,6 +4,18 @@ Une API pour gérer les images avec des fonctionnalités telles que le télécha
 
 ## Lancer le Projet
 
+##### Installation
+
+1. **Cloner le dépôt du modèle :**
+
+   ```bash
+   git clone https://github.com/Technical-Test-Olky/back.git
+
+   cd back
+
+   bash ./setup.sh
+   ```
+
 ##### Configurer les Variables d'Environnement
 
 Crée un fichier `.env` à la racine du projet et ajoute les variables d'environnement suivantes :
@@ -29,20 +41,7 @@ PRIVATE_KEY=""
 FIREBASE_BUCKET_NAME=""
 ```
 
-##### Installation du projet via docker
-
-1. **Cloner le dépôt du modèle :**
-
-   ```bash
-   git clone https://github.com/Technical-Test-Olky/back.git
-
-   cd back
-
-   bash ./setup.sh
-   ```
-
 **Lancer le projet :**
-
 Lancer sur votre terminal l'api
 
 ```bash
