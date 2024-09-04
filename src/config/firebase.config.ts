@@ -17,9 +17,10 @@ const firebaseConfig: ServiceAccount = {
   clientEmail: process.env.CLIENT_EMAIL,
 };
 
-const app = initializeApp({
+export const app = initializeApp({
   credential: cert(firebaseConfig),
 });
 
 const bucketName = process.env.FIREBASE_BUCKET_NAME;
-export const bucketStorage = getStorage(app).bucket(bucketName);
+export const storage = getStorage(app);
+export const bucketStorage = storage.bucket(bucketName);
