@@ -3,8 +3,7 @@ import amqp from "amqplib";
 
 export const QUEUE = "image_processing";
 
-const RABBITMQ_CONNECTION_STRING =
-  "amqp://rabbitmqadmin:rabbitmqpassword@localhost:5672";
+const RABBITMQ_CONNECTION_STRING = `amqp://${process.env.RABBITMQ_ADMIN_USER}:${process.env.RABBITMQ_ADMIN_PASSWORD}@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`;
 
 export const getConnectionData = async () => {
   const connection = await amqp.connect(RABBITMQ_CONNECTION_STRING);
