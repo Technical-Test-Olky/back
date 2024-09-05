@@ -1,6 +1,6 @@
 # Image Management API
 
-Cette API permet de gérer les images avec des fonctionnalités telles que le téléchargement de fichiers, la recherche, la pagination, et l'intégration avec Firebase pour le stockage, ainsi qu'une API externe pour la génération de mots-clés. Le système utilise RabbitMQ pour la gestion des messages.
+Cette API permet de gérer les images avec des fonctionnalités telles que le téléchargement de fichiers, la recherche, la pagination, et l'intégration avec Firebase pour le stockage, ainsi qu'une API externe pour la génération de mots-clés. Le système utilise RabbitMQ pour la gestion des génération de mots-clés d'une image.
 
 ## Lancer le Projet
 
@@ -50,7 +50,7 @@ yarn dev
 
 ### 4. Lancer le Trigger de RabbitMQ
 
-Pour lancer le service RabbitMQ qui gère les messages, exécutez :
+Pour lancer le service RabbitMQ, exécutez la commande suivante dans une nouvelle fenêtre du terminal :
 
 ```bash
 yarn ts-node rabbitmq_trigger/sub.ts

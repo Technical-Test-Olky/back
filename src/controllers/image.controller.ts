@@ -1,9 +1,9 @@
 require("dotenv").config();
 import path from "path";
-import Database from "../models";
-import { getPagination, getPagingData } from "../utils/pagination";
 import type Express from "express";
 import type fileUpload from "express-fileupload";
+import Database from "../models";
+import { getPagination, getPagingData } from "../utils/pagination";
 import type { Images } from "../types/Image";
 import { bucketStorage } from "../config/firebase.config";
 import {
